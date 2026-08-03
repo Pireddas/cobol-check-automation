@@ -5,7 +5,7 @@ set -e
 
 # Convert username to lowercase
 LOWERCASE_USERNAME=$(echo "$ZOWE_USERNAME" | tr '[:upper:]' '[:lower:]')
-PARAM_STRING="-H $HOSTNAME -P 10443 -u $ZOWE_USERNAME --pw $ZOWE_PASSWORD --ru false"
+PARAM_STRING="-H $HOSTNAME -P $PORT -u $ZOWE_USERNAME --pw $ZOWE_PASSWORD --ru false"
 
 # Check if directory exists, create if it doesn't
 zowe zos-files create uss-directory \
