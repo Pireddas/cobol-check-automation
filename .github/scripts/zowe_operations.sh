@@ -1,0 +1,37 @@
+name: COBOL Check Automation
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  cobol-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Zowe CLI
+        run: |
+          npm install -g @zowe/cli
+          zowe --version
+
+      - name: Setup Mainframe Environment and Upload COBOL Check
+        env:
+          ZOWE_USERNAME: ${{ secrets.ZOWE_USERNAME }}
+          ZOWE_PASSWORD: ${{ secrets.ZOWE_PASSWORD }}
+        run: |
+          chmod +x .github/scripts/zowe_operations.sh
+          .github/scripts/zowe_operations.sh
