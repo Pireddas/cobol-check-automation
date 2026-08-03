@@ -26,6 +26,7 @@ jobs:
           ZOWE_USERNAME: ${{ secrets.ZOWE_USERNAME }}
           ZOWE_PASSWORD: ${{ secrets.ZOWE_PASSWORD }}
           HOSTNAME: ${{ secrets.MAINFRAME_HOST }}
+          PORT: ${{ secrets.MAINFRAME_PORT }}
         run: |
           chmod +x .github/scripts/zowe_operations.sh
           .github/scripts/zowe_operations.sh
