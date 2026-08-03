@@ -1,22 +1,37 @@
-#!/bin/bash
-# zowe_operations.sh
+name: COBOL Check Automation
 
-# Convert username to lowercase
-LOWERCASE_USERNAME=$(echo "$ZOWE_USERNAME" | tr '[:upper:]' '[:lower:]')
+on:
+  push:
+    branches:
+      - main
 
-# Check if directory exists, create if it doesn't
-if ! zowe zos-files list uss-files "/z/$LOWERCASE_USERNAME/cobolcheck" >/dev/null 2>&1; then
-  echo "Directory does not exist. Creating it..."
-  zowe zos-files create uss-directory "/z/$LOWERCASE_USERNAME/cobolcheck"
-else
-  echo "Directory already exists."
-fi
+jobs:
+  cobol-check:
+    runs-on: ubuntu-latest
 
-# Upload files
-zowe zos-files upload dir-to-uss "./cobol-check" "/z/$LOWERCASE_USERNAME/cobolcheck" \
-  --recursive \
-  --binary-files "cobol-check-0.2.9.jar"
+    steps:
+      - uses: actions/checkout@v4
 
-# Verify upload
-echo "Verifying upload:"
-zowe zos-files list uss-files "/z/$LOWERCASE_USERNAME/cobolcheck"
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Zowe CLI
+        run: |
+          npm install -g @zowe/cli
+          zowe --version
+
+      - name: Setup Mainframe Environment and Upload COBOL Check
+        env:
+          ZOWE_USERNAME: ${{ secrets.ZOWE_USERNAME }}
+          ZOWE_PASSWORD: ${{ secrets.ZOWE_PASSWORD }}
+        run: |
+          chmod +x .github/scripts/zowe_operations.sh
+          .github/scripts/zowe_operations.sh
