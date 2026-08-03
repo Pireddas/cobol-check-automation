@@ -8,7 +8,9 @@ LOWERCASE_USERNAME=$(echo "$ZOWE_USERNAME" | tr '[:upper:]' '[:lower:]')
 PARAM_STRING="-H $HOSTNAME -P 10443 -u $ZOWE_USERNAME --pw $ZOWE_PASSWORD --ru false"
 
 # Check if directory exists, create if it doesn't
-zowe zos-files stat uss-file "/z/$LOWERCASE_USERNAME/cobolcheck" $PARAM_STRING
+zowe zos-files create uss-directory \
+  "/z/$LOWERCASE_USERNAME/cobolcheck" \
+  $PARAM_STRING >/dev/null 2>&1 || true
 
 # Upload files
 zowe zos-files upload dir-to-uss "./cobol-check" "/z/$LOWERCASE_USERNAME/cobolcheck" \
