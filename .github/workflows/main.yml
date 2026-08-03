@@ -21,6 +21,11 @@ jobs:
       - name: Install Zowe CLI
         run: npm install -g @zowe/cli@latest
         
+      - name: Install GnuCOBOL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gnucobol
+          
       - name: Setup Mainframe Environment and Upload COBOL Check
         env:
           ZOWE_USERNAME: ${{ secrets.ZOWE_USERNAME }}
