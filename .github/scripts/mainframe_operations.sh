@@ -9,25 +9,25 @@ export PATH=$PATH:/usr/lpp/zowe/cli/node/bin
 java -version
 # Set ZOWE_USERNAME
 ZOWE_USERNAME="Z80551" # Replace with the actual username
-# Change to the cobolcheck directory
-cd cobolcheck
+# Change to the cobol-check directory
+cd cobol-check
 echo "Changed to $(pwd)"
 ls -al
 # Make cobolcheck executable
-chmod +x cobolcheck
-echo "Made cobolcheck executable"
+chmod +x cobol-check
+echo "Made cobol-check executable"
 # Make script in scripts directory executable
 cd scripts
 chmod +x linux_gnucobol_run_tests
 echo "Made linux_gnucobol_run_tests executable"
 cd ..
-# Function to run cobolcheck and copy files
+# Function to run cobol-check and copy files
 run_cobolcheck() {
   program=$1
-  echo "Running cobolcheck for $program"
+  echo "Running cobol-check for $program"
   # Run cobolcheck, but don't exit if it fails
-  ./cobolcheck -p $program
-  echo "Cobolcheck execution completed for $program (exceptions may have occurred)"
+  ./cobol-check -p $program
+  echo "Cobol-check execution completed for $program (exceptions may have occurred)"
   # Check if CC##99.CBL was created, regardless of cobolcheck exit status
   if [ -f "CC##99.CBL" ]; then
     # Copy to the MVS dataset
