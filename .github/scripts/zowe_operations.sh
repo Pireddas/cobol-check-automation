@@ -17,7 +17,7 @@ zowe zos-files upload dir-to-uss "./cobol-check" "/z/$LOWERCASE_USERNAME/cobolch
   --recursive \
   --binary-files "cobol-check-0.2.19.jar" $PARAM_STRING 
 
-zowe zos-files upload file-to-uss "./cobol-check-0.2.19.jar" \
+zowe zos-files upload file-to-uss "./cobol-check/bin/cobol-check-0.2.19.jar" \
   "/z/$LOWERCASE_USERNAME/cobolcheck/bin/cobol-check-0.2.19.jar" \
   --binary $PARAM_STRING
 
