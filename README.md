@@ -4,5 +4,5 @@ Automating COBOL testing with cobolcheck and GitHub Actions.
 
 
 
-test\_
+test_
 
