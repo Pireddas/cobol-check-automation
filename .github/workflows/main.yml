@@ -1,4 +1,4 @@
-name: Setup Mainframe Environment and Upload COBOL Check
+name: COBOL Check Automation
 
 on:
   push:
@@ -18,7 +18,7 @@ jobs:
           distribution: temurin
           java-version: '11'
 
-      - name: Run COBOL Check
+      - name: Setup Mainframe Environment and Upload COBOL Check
         env:
           ZOWE_USERNAME: ${{ secrets.ZOWE_USERNAME }}
           ZOWE_PASSWORD: ${{ secrets.ZOWE_PASSWORD }}
